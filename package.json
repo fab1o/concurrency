@@ -1,8 +1,8 @@
 {
   "name": "@fab1o/concurrency",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Create fake jobs for concurrency simulation & testing.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": {
     "name": "Fabio Costa",
     "url": "https://github.com/fab1o"

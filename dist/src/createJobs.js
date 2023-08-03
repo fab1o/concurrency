@@ -1,14 +1,19 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createJobs = void 0;
 /**
  * @desc Worker.
  * @param {Boolean} [errorOut=false] - Whether or not should reject promise.
  * @param {Number} [timeLimit=10] - Limit of time in miliseconds for each job to finish.
  * @returns {Promise<void>}
  */
-const Worker = ((errorOut = false, timeLimit = 10) => {
+var Worker = (function (errorOut, timeLimit) {
+    if (errorOut === void 0) { errorOut = false; }
+    if (timeLimit === void 0) { timeLimit = 10; }
     // simulate work
-    return new Promise((resolve, reject) => {
-        const num = Math.floor(Math.random() * timeLimit);
-        setTimeout(() => {
+    return new Promise(function (resolve, reject) {
+        var num = Math.floor(Math.random() * timeLimit);
+        setTimeout(function () {
             if (errorOut) {
                 reject();
             }
@@ -26,8 +31,11 @@ const Worker = ((errorOut = false, timeLimit = 10) => {
  * @param {Number} [options.timeLimit] - Limit of time in seconds for each job to finish.
  * @param {Array<Function>}
  */
-export function createJobs(qty = 1, options = {}) {
-    const { errorRate = 0, timeLimit } = options;
+function createJobs(qty, options) {
+    var _a;
+    if (qty === void 0) { qty = 1; }
+    if (options === void 0) { options = {}; }
+    var _b = options.errorRate, errorRate = _b === void 0 ? 0 : _b, timeLimit = options.timeLimit;
     if (Number.isNaN(Number(errorRate))) {
         throw new Error('errorRate must be a number');
     }
@@ -37,27 +45,28 @@ export function createJobs(qty = 1, options = {}) {
     if (timeLimit && Number.isNaN(Number(timeLimit))) {
         throw new Error('timeLimit must be a number');
     }
-    const jobs = new Array(qty);
-    const errorMax = Math.floor(jobs.length * errorRate);
+    var jobs = new Array(qty);
+    var errorMax = Math.floor(jobs.length * errorRate);
     // Create an array of indices representing the positions in the original array
-    const indices = Array.from({ length: jobs.length }, (_, index) => index);
+    var indices = Array.from({ length: jobs.length }, function (_, index) { return index; });
     // Shuffle the indices randomly
-    for (let i = indices.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [indices[i], indices[j]] = [indices[j], indices[i]];
+    for (var i = indices.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        _a = [indices[j], indices[i]], indices[i] = _a[0], indices[j] = _a[1];
     }
     // Set the first errorMax indices in the original array
-    for (let i = 0; i < indices.length; i++) {
+    for (var i = 0; i < indices.length; i++) {
         if (i < errorMax) {
-            const worker = Worker.bind(null, true, timeLimit);
+            var worker = Worker.bind(null, true, timeLimit);
             worker.errorOut = true;
             jobs[indices[i]] = worker;
         }
         else {
-            const worker = Worker.bind(null, false, timeLimit);
+            var worker = Worker.bind(null, false, timeLimit);
             worker.errorOut = false;
             jobs[indices[i]] = worker;
         }
     }
     return jobs;
 }
+exports.createJobs = createJobs;
