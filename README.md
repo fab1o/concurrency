@@ -34,10 +34,11 @@ const jobs = createJobs(2, { errorRate: 0.5 });
 
 for (const job of jobs) {
   try {
-    await job();
-    console.log('success');
-  } catch {
-    console.log('error');
+    const id = await job();
+
+    console.log(`Success with job #${id}`);
+  } catch(id) {
+    console.log(`Error with job #${id}`);
   }
 }
 
