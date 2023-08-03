@@ -18,7 +18,7 @@ const uniqueId = (function () {
 /**
  * @desc Worker.
  * @param {Boolean} [errorOut=false] - Whether or not should reject promise.
- * @param {Number} [timeLimit=10] - Limit of time in miliseconds for each job to finish.
+ * @param {Number} [timeLimit=10] - Limit of time in seconds for each job to finish.
  * @returns {Promise<void>}
  */
 const Worker = <WorkerFunc>((errorOut = false, timeLimit = 10) => {
