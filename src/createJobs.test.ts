@@ -26,10 +26,26 @@ it('should create jobs sucessfully with correct error rate of 1', () => {
   expect(jobs.reduce((acc, curr) => acc + Number(curr.errorOut), 0)).toBe(10);
 });
 
-it('jobs should throw errors', async () => {
-  const jobs = createJobs(2, { errorRate: 1, timeLimit: 1 });
+it('should execute and throw errors (all jobs)', async () => {
+  const jobs = createJobs(2, { errorRate: 1, timeLimit: 0.1 });
 
   for (const job of jobs) {
     await expect(job()).rejects.toBe(undefined);
   }
+});
+
+it('should execute and throw errors (half of the jobs)', async () => {
+  const jobs = createJobs(4, { errorRate: 0.5, timeLimit: 0.1 });
+
+  let errorCount = 0;
+
+  for (const job of jobs) {
+    try {
+      await job();
+    } catch {
+      errorCount++;
+    }
+  }
+
+  expect(errorCount).toBe(2);
 });
