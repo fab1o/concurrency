@@ -30,11 +30,17 @@ for (const job of jobs) {
 If we want every other job to throw an error, we set `errorRate` option to `0.5` (that is 50%)
 
 ```js
-const jobs = createJobs(1, { errorRate: 0.5 });
+const jobs = createJobs(2, { errorRate: 0.5 });
 
-const job = jobs[0];
+for (const job of jobs) {
+  try {
+    await job();
+    console.log('success');
+  } catch {
+    console.log('error');
+  }
+}
 
-try {
-  await job();
-} catch {}
+// error
+// success
 ```
