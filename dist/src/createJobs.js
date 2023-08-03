@@ -1,6 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJobs = void 0;
+var uniqueId = (function () {
+    var num = 0;
+    return function () {
+        num += 1;
+        return num;
+    };
+})();
 /**
  * @desc Worker.
  * @param {Boolean} [errorOut=false] - Whether or not should reject promise.
@@ -15,10 +22,10 @@ var Worker = (function (errorOut, timeLimit) {
         var num = Math.floor(Math.random() * timeLimit);
         setTimeout(function () {
             if (errorOut) {
-                reject();
+                reject(uniqueId());
             }
             else {
-                resolve();
+                resolve(uniqueId());
             }
         }, num * 1000);
     });

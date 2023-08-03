@@ -49,3 +49,12 @@ it('should execute and throw errors (half of the jobs)', async () => {
 
   expect(errorCount).toBe(2);
 });
+
+it('should execute and return an id', async () => {
+  const jobs = createJobs(1, { timeLimit: 0.1 });
+  const job = jobs[0];
+
+  const id = await job();
+
+  expect(id).resolves.toBe(1);
+});

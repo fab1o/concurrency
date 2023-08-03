@@ -3,9 +3,17 @@ export interface IWorker extends Function {
 }
 
 export type WorkerFunc = {
-  (errorOut: boolean, timeLimit?: number): Promise<void>;
+  (errorOut: boolean, timeLimit?: number): Promise<number>;
   errorOut: boolean;
 };
+
+const uniqueId = (function () {
+  let num = 0;
+  return function () {
+    num += 1;
+    return num;
+  };
+})();
 
 /**
  * @desc Worker.
@@ -20,9 +28,9 @@ const Worker = <WorkerFunc>((errorOut = false, timeLimit = 10) => {
 
     setTimeout(() => {
       if (errorOut) {
-        reject();
+        reject(uniqueId());
       } else {
-        resolve();
+        resolve(uniqueId());
       }
     }, num * 1000);
   });

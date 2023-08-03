@@ -1,6 +1,6 @@
 {
   "name": "@fab1o/concurrency",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Create fake jobs for concurrency simulation & testing.",
   "main": "dist/index.js",
   "author": {
@@ -9,10 +9,10 @@
   },
   "private": false,
   "scripts": {
-    "build": "tsc -p .",
+    "build": "tsc -p tsconfig.json",
     "test": "jest --watchAll",
-    "lint": "eslint . --ext .js,.ts",
-    "lint-fix": "prettier --write \"./**/*.{js,ts,json,md}\" && eslint . --ext .js,.ts --fix"
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "prettier --ignore-path \".prettierignore\" --write \"./**/*.{ts,json,md}\" && eslint . --ext .ts --fix"
   },
   "devDependencies": {
     "@types/jest": "29.5.3",
@@ -28,5 +28,9 @@
     "typescript": "5.1.6"
   },
   "license": "ISC",
-  "files": ["src", "typings", "dist"]
+  "files": [
+    "src",
+    "typings",
+    "dist"
+  ]
 }
