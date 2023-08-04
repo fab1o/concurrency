@@ -2,7 +2,7 @@
 
 Create simulated jobs for concurrency simulation & testing.
 
-Jobs are all async and each job spend a random amount of time between 0 and 9 seconds to finish.
+Each job is async, returns a unique Id, and spends a random amount of time between 0 and 9 seconds to finish, which you may configure.
 
 ## Examples
 
