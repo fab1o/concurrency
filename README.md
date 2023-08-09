@@ -6,6 +6,8 @@ Each job is async, returns a unique Id, and spends a random amount of time betwe
 
 ## Examples
 
+Check out this [example file](/blob/main/examples/example.js) to see how it works.
+
 Create 100 jobs:
 
 ```js
@@ -40,7 +42,7 @@ for (const job of jobs) {
   } catch(id) {
     console.log(`Error with job #${id}`);
   }
-}
+} 
 
 // error
 // success
